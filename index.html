@@ -1,0 +1,2018 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mastery Test: Modals & Media (50 Questions) - Ms Ngoc Hai FTU</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        :root {
+            --primary-bg-1: #8854C0;
+            --primary-bg-2: #FDCB6E;
+            --primary-bg-3: #00C9A7;
+            --primary-bg-4: #FF7675;
+            --correct-color: #00D26A;
+            --correct-shadow: #00A352;
+            --wrong-color: #FF4757;
+            --wrong-shadow: #D63031;
+            --selected-color: #6C5CE7;
+            --selected-shadow: #4834D4;
+            --card-bg: rgba(255, 255, 255, 0.96);
+            --text-color: #2D3436;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Nunito', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(-45deg, #8854C0, #FDCB6E, #00C9A7, #FF7675, #6C5CE7);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            position: relative;
+            padding: 20px 10px;
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* SVG Pattern Overlay */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120"><text x="15" y="35" font-size="22" opacity="0.3">⭐</text><text x="75" y="25" font-size="24" opacity="0.3">🌸</text><text x="95" y="85" font-size="20" opacity="0.3">🍓</text><text x="25" y="95" font-size="24" opacity="0.3">🐱</text><text x="60" y="60" font-size="22" opacity="0.3">☁️</text></svg>');
+            background-repeat: repeat;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            width: 100%;
+            max-width: 840px;
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 10px 18px;
+            border-radius: 18px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+            border: 3px solid #FFF;
+        }
+
+        h1 {
+            font-size: 1.25rem;
+            font-weight: 900;
+            color: #6C5CE7;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .teacher-tag {
+            font-size: 0.8rem;
+            font-weight: 800;
+            color: #D63031;
+            background: #FFEAA7;
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 10px;
+            border: 2px solid #FDCB6E;
+            margin-top: 3px;
+        }
+
+        .level-nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .level-btn {
+            background: #FFF;
+            border: 3px solid #CBD5E1;
+            border-bottom: 5px solid #94A3B8;
+            border-radius: 16px;
+            padding: 8px 16px;
+            font-size: 0.92rem;
+            font-weight: 800;
+            color: #475569;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .level-btn.active {
+            background: #6C5CE7;
+            border-color: #6C5CE7;
+            border-bottom-color: #4834D4;
+            color: #FFF;
+            transform: translateY(-2px);
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #FFF;
+            padding: 10px 18px;
+            border-radius: 16px;
+            box-shadow: 0 5px 0px #DFE6E9;
+            font-weight: 800;
+            font-size: 0.95rem;
+        }
+
+        .progress-container {
+            flex-grow: 1;
+            margin: 0 15px;
+            background: #DFE6E9;
+            height: 12px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #00C9A7, #00D26A);
+            border-radius: 10px;
+            transition: width 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .filter-bar {
+            display: none;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .filter-bar.active {
+            display: flex;
+        }
+
+        .filter-btn {
+            background: #FFF;
+            border: 3px solid #CBD5E1;
+            border-bottom: 5px solid #94A3B8;
+            border-radius: 14px;
+            padding: 6px 14px;
+            font-size: 0.9rem;
+            font-weight: 800;
+            color: #475569;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .filter-btn.active {
+            background: #6C5CE7;
+            border-color: #6C5CE7;
+            border-bottom-color: #4834D4;
+            color: #FFF;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border-radius: 22px;
+            padding: 22px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border: 4px solid #FFF;
+            transition: transform 0.2s, opacity 0.3s;
+        }
+
+        .question-card.hidden {
+            display: none;
+        }
+
+        .card-header-badge {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .badge-group {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .question-number {
+            font-size: 0.9rem;
+            font-weight: 800;
+            color: #0984E3;
+            background: #E1F5FE;
+            padding: 3px 10px;
+            border-radius: 10px;
+        }
+
+        .level-indicator {
+            font-size: 0.8rem;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 8px;
+            text-transform: uppercase;
+        }
+
+        .level-easy { background: #E8F5E9; color: #2E7D32; }
+        .level-medium { background: #FFF3E0; color: #E65100; }
+        .level-hard { background: #F3E5F5; color: #7B1FA2; }
+
+        .status-badge {
+            display: none;
+            font-size: 0.82rem;
+            font-weight: 900;
+            padding: 3px 10px;
+            border-radius: 10px;
+        }
+
+        .status-badge.correct {
+            display: inline-block;
+            background: #D1FAE5;
+            color: #059669;
+        }
+
+        .status-badge.wrong {
+            display: inline-block;
+            background: #FEE2E2;
+            color: #DC2626;
+        }
+
+        .question-text {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #2D3436;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+
+        /* Gap Fill Specific Style */
+        .gap-slot {
+            display: inline-block;
+            background: #E0E7FF;
+            color: #3730A3;
+            border: 2px dashed #6366F1;
+            padding: 2px 14px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 800;
+            margin: 0 4px;
+            transition: all 0.2s;
+        }
+        .gap-slot:hover {
+            background: #C7D2FE;
+        }
+        .gap-slot.filled {
+            background: #EEF2FF;
+            border-style: solid;
+        }
+
+        /* Options Grid for Multiple Choice */
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
+        }
+
+        .option-btn {
+            background: #FFFFFF;
+            border: 3px solid #E2E8F0;
+            border-bottom: 6px solid #CBD5E1;
+            border-radius: 16px;
+            padding: 12px 14px;
+            font-size: 1rem;
+            font-weight: 800;
+            color: #475569;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            display: flex;
+            align-items: center;
+            outline: none;
+        }
+
+        .option-btn:hover:not(.locked) {
+            transform: translateY(-2px);
+            border-color: #A7F3D0;
+            background: #F0FDF4;
+        }
+
+        .option-btn:active:not(.locked) {
+            transform: translateY(2px);
+            border-bottom-width: 3px;
+        }
+
+        .option-prefix {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            background: #F1F5F9;
+            color: #64748B;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-weight: 900;
+            flex-shrink: 0;
+        }
+
+        .option-btn.selected {
+            background-color: var(--selected-color) !important;
+            border-color: var(--selected-color) !important;
+            border-bottom-color: var(--selected-shadow) !important;
+            color: #FFFFFF !important;
+        }
+
+        .option-btn.selected .option-prefix {
+            background: rgba(255, 255, 255, 0.3);
+            color: #FFF;
+        }
+
+        .option-btn.correct {
+            background-color: var(--correct-color) !important;
+            border-color: var(--correct-color) !important;
+            border-bottom-color: var(--correct-shadow) !important;
+            color: #FFFFFF !important;
+        }
+
+        .option-btn.correct .option-prefix {
+            background: rgba(255, 255, 255, 0.3);
+            color: #FFF;
+        }
+
+        .option-btn.wrong {
+            background-color: var(--wrong-color) !important;
+            border-color: var(--wrong-color) !important;
+            border-bottom-color: var(--wrong-shadow) !important;
+            color: #FFFFFF !important;
+        }
+
+        .option-btn.wrong .option-prefix {
+            background: rgba(255, 255, 255, 0.3);
+            color: #FFF;
+        }
+
+        .explanation-box {
+            display: none;
+            margin-top: 16px;
+            padding: 16px;
+            background: #F0FDF4;
+            border: 2px dashed #00C9A7;
+            border-radius: 16px;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .explanation-box.active {
+            display: block;
+        }
+
+        .explanation-title {
+            font-size: 1rem;
+            font-weight: 900;
+            color: #059669;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 8px;
+            border-bottom: 2px solid #A7F3D0;
+            padding-bottom: 4px;
+        }
+
+        .exp-section {
+            margin-bottom: 6px;
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        .exp-section strong {
+            color: #065F46;
+        }
+
+        .exp-options-list {
+            list-style: none;
+            margin: 4px 0;
+            padding-left: 6px;
+        }
+
+        .exp-options-list li {
+            margin-bottom: 3px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .submit-btn-container {
+            text-align: center;
+            margin: 10px 0 30px;
+        }
+
+        .submit-btn {
+            background: linear-gradient(180deg, #FF7675 0%, #D63031 100%);
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 900;
+            padding: 14px 34px;
+            border: none;
+            border-radius: 22px;
+            box-shadow: 0 7px 0 #B22222, 0 10px 18px rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: all 0.2s;
+            text-transform: uppercase;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 9px 0 #B22222, 0 12px 22px rgba(0,0,0,0.25);
+        }
+
+        .submit-btn:active {
+            transform: translateY(3px);
+            box-shadow: 0 4px 0 #B22222, 0 5px 8px rgba(0,0,0,0.2);
+        }
+
+        /* Gap Fill Selection Modal Popup */
+        .gap-modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(3px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1100;
+            padding: 20px;
+        }
+        .gap-modal-overlay.active {
+            display: flex;
+        }
+        .gap-modal-card {
+            background: #FFF;
+            border-radius: 20px;
+            padding: 20px;
+            max-width: 350px;
+            width: 100%;
+            text-align: center;
+            border: 5px solid #6C5CE7;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+        .gap-modal-title {
+            font-size: 1.1rem;
+            font-weight: 900;
+            color: #6C5CE7;
+            margin-bottom: 12px;
+        }
+        .gap-options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .gap-option-item {
+            background: #F1F5F9;
+            border: 2px solid #CBD5E1;
+            border-radius: 12px;
+            padding: 10px;
+            font-weight: 800;
+            color: #334155;
+            cursor: pointer;
+            transition: all 0.1s;
+        }
+        .gap-option-item:hover {
+            background: #6C5CE7;
+            color: #FFF;
+            border-color: #6C5CE7;
+        }
+
+        /* Score Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.65);
+            backdrop-filter: blur(4px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-card {
+            background: #FFF;
+            border-radius: 26px;
+            padding: 28px 18px;
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            border: 6px solid #FDCB6E;
+        }
+
+        .modal-icon {
+            font-size: 3.5rem;
+            margin-bottom: 6px;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #6C5CE7;
+            margin-bottom: 6px;
+        }
+
+        .score-display {
+            font-size: 2.6rem;
+            font-weight: 900;
+            color: #00C9A7;
+            margin: 8px 0;
+        }
+
+        .feedback-text {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #2D3436;
+            margin-bottom: 18px;
+            line-height: 1.45;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .modal-btn {
+            border: none;
+            padding: 10px 18px;
+            font-size: 0.95rem;
+            font-weight: 800;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: transform 0.15s;
+        }
+
+        .modal-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-view-all {
+            background: #00C9A7;
+            color: #FFF;
+            box-shadow: 0 4px 0 #00A352;
+        }
+
+        .btn-view-wrong {
+            background: #FF7675;
+            color: #FFF;
+            box-shadow: 0 4px 0 #D63031;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Modals & Media Mastery Test (50 Questions)</h1>
+            <div class="teacher-tag">Giáo viên tạo: Ms Ngoc Hai FTU</div>
+        </header>
+
+        <div class="level-nav">
+            <button class="level-btn active" onclick="switchLevelFilter('all')">Tất cả (50 câu)</button>
+            <button class="level-btn" onclick="switchLevelFilter('easy')">Bài 1: Cơ bản (20 câu)</button>
+            <button class="level-btn" onclick="switchLevelFilter('medium')">Bài 2: Nâng cao (20 câu)</button>
+            <button class="level-btn" onclick="switchLevelFilter('hard')">Bài 3: Chuyên sâu (10 câu)</button>
+        </div>
+
+        <div class="stats-bar">
+            <span id="statsLabel">📝 Tiến độ làm bài</span>
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <span id="progressText">0/50</span>
+        </div>
+
+        <div class="filter-bar" id="filterBar">
+            <button class="filter-btn active" id="btnFilterAll" onclick="filterQuestionsResult('all')">👁️ Xem bài đã lọc (<span id="totalVisibleCount">50</span> câu)</button>
+            <button class="filter-btn" id="btnFilterWrong" onclick="filterQuestionsResult('wrong')">❌ Chỉ xem câu sai (<span id="wrongCount">0</span>)</button>
+        </div>
+
+        <div id="quizContainer"></div>
+
+        <div class="submit-btn-container" id="submitContainer">
+            <button class="submit-btn" id="submitBtn">🎉 Nộp Bài & Chấm Điểm</button>
+        </div>
+    </div>
+
+    <!-- Gap Fill Selection Popup Modal -->
+    <div class="gap-modal-overlay" id="gapModal">
+        <div class="gap-modal-card">
+            <div class="gap-modal-title">Chọn từ điền vào chỗ trống:</div>
+            <div class="gap-options-list" id="gapOptionsList"></div>
+        </div>
+    </div>
+
+    <!-- Score Modal Popup -->
+    <div class="modal-overlay" id="scoreModal">
+        <div class="modal-card">
+            <div class="modal-icon" id="modalIcon">🏆</div>
+            <div class="modal-title" id="modalTitle">Hoàn thành bài thi!</div>
+            <div class="score-display" id="scoreDisplay">0/50</div>
+            <div class="feedback-text" id="feedbackText">Tuyệt vời!</div>
+            <div class="modal-actions">
+                <button class="modal-btn btn-view-wrong" onclick="reviewWrongAnswers()">🔍 Xem các câu làm sai</button>
+                <button class="modal-btn btn-view-all" onclick="reviewAllAnswers()">📖 Xem toàn bộ bài giải</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        let audioCtx = null;
+
+        function initAudio() {
+            if (!audioCtx) audioCtx = new AudioCtx();
+        }
+
+        function playSound(type) {
+            try {
+                initAudio();
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+
+                if (type === 'correct') {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(523.25, audioCtx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(1046.50, audioCtx.currentTime + 0.3);
+                    gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.3);
+                } else if (type === 'wrong') {
+                    const now = audioCtx.currentTime;
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(300, now);
+                    osc.frequency.setValueAtTime(250, now + 0.12);
+                    osc.frequency.setValueAtTime(200, now + 0.24);
+                    gain.gain.setValueAtTime(0.2, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start();
+                    osc.stop(now + 0.4);
+                }
+            } catch (e) {
+                console.log("Audio API not supported");
+            }
+        }
+
+        const rawQuestionsData = [
+            // ==================== BÀI 1: CƠ BẢN (20 CÂU: 10 MCQ + 10 GAP FILL) ====================
+            {
+                type: "mcq",
+                level: "easy",
+                levelLabel: "Bài 1: Cơ bản",
+                q: "You ______ really speak seven languages fluently, can you?",
+                options: ["can't", "mustn't", "shouldn't", "needn't"],
+                answer: "can't",
+                exp: {
+                    translations: [
+                        "A. can't: không thể",
+                        "B. mustn't: không được phép",
+                        "C. shouldn't: không nên",
+                        "D. needn't: không cần thiết"
+                    ],
+                    sentenceTrans: "Bạn không thực sự nói lưu loát bảy thứ tiếng phải không?",
+                    whyCorrect: "Chọn A ('can't') vì đây là cấu trúc diễn tả khả năng thực tế hiện tại (real current ability)[cite: 35].",
+                    whyWrong: "B, C, D sai về ngữ nghĩa và không phù hợp với chức năng hỏi về khả năng."
+                }
+            },
+            {
+                type: "mcq",
+                level: "easy",
+                levelLabel: "Bài 1: Cơ bản",
+                q: "There's no way you ______ read when you were two years old!",
+                options: ["could", "can", "must", "will"],
+                answer: "could",
+                exp: {
+                    translations: [
+                        "A. could: có thể (quá khứ)",
+                        "B. can: có thể (hiện tại)",
+                        "C. must: phải",
+                        "D. will: sẽ"
+                    ],
+                    sentenceTrans: "Không đời nào bạn có thể đọc sách khi mới hai tuổi được!",
+                    whyCorrect: "Chọn A ('could') vì đây là câu nói về khả năng trong quá khứ (past ability)[cite: 35].",
+                    whyWrong: "B, C, D không dùng cho mốc thời gian quá khứ 'when you were two'."
+                }
+            },
+            {
+                type: "mcq",
+                level: "easy",
+                levelLabel: "Bài 1: Cơ bản",
+                q: "______ I finish watching this TV program before I go to bed?",
+                options: ["Can", "Must", "Should", "Will"],
+                answer: "Can",
+                exp: {
+                    translations: [
+                        "A. Can: có thể (xin phép)",
+                        "B. Must: phải",
+                        "C. Should: nên",
+                        "D. Will: sẽ"
+                    ],
+                    sentenceTrans: "Con có thể xem nốt chương trình này trước khi đi ngủ không?",
+                    whyCorrect: "Chọn A ('Can') vì dùng để hỏi xin phép (asking for permission) trong văn cảnh thân mật[cite: 35].",
+                    whyWrong: "B, C, D không dùng để xin phép trực tiếp thông thường."
+                }
+            },
+            {
+                type: "mcq",
+                level: "easy",
+                levelLabel: "Bài 1: Cơ bản",
+                q: "You ______ try to get that poem published in a literary magazine.",
+                options: ["should", "mustn't", "might", "can't"],
+                answer: "should",
+                exp: {
+                    translations: [
+                        "A. should: nên",
+                        "B. mustn't: không được phép",
+                        "C. might: có lẽ",
+                        "D. can't: không thể"
+                    ],
+                    sentenceTrans: "Bạn nên thử đem bài thơ đó đi xuất bản trên một tạp chí văn học.",
+                    whyCorrect: "Chọn A ('should') vì dùng để đưa ra lời khuyên (giving advice)[cite: 35].",
+                    whyWrong: "B, C, D sai nghĩa khuyên bảo tích cực."
+                }
+            },
+            {
+                type: "mcq",
+                level: "easy",
+                levelLabel: "Bài 1: Cơ bản",
+                q: "You have ______ be a good communicator to be a successful press spokesperson.",
+                options: ["to", "should", "can", "mustn't"],
+                answer: "to",
+                exp: {
+                    translations: [
+                        "A. to (trong 'have to'): phải",
+                        "B. should: nên",
+                        "C. can: có thể",
+                        "D. mustn't: cấm"
+                    ],
+                    sentenceTrans: "Bạn phải là một người giao tiếp tốt để trở thành một phát ngôn viên báo chí thành công.",
+                    whyCorrect: "Chọn A vì cấu trúc 'have to' diễn tả nghĩa vụ khách quan (external obligation)[cite: 36].",
+                    whyWrong: "B, C, D không kết hợp đúng cấu trúc với 'have'."
+                }
+            },
+            {
+                type: "mcq",
+                level: "easy",
+                levelLabel: "Bài 1: Cơ bản",
+                q: "You don't always ______ to have a university degree to become a journalist.",
+                options: ["have", "must", "should", "needn't"],
+                answer: "have",
+                exp: {
+                    translations: [
+                        "A. have (trong 'don't have to'): không bắt buộc",
+                        "B. must: phải",
+                        "C. should: nên",
+                        "D. needn't: không cần",
+                    ],
+                    sentenceTrans: "Bạn không phải lúc nào cũng cần có bằng đại học để trở thành một nhà báo.",
+                    whyCorrect: "Chọn A vì 'don't have to' diễn tả sự thiếu nghĩa vụ / không bắt buộc (lack of obligation)[cite: 36].",
+                    whyWrong: "B, C, D không đi với cấu trúc 'don't ... to'."
+                }
+            },
+            {
+                type: "mcq",
+                level: "easy",
+                levelLabel: "Bài 1: Cơ bản",
+                q: "'There's someone at the door.' — 'That ______ be the postman.'",
+                options: ["will", "can't", "mustn't", "shouldn't"],
+                answer: "will",
+                exp: {
+                    translations: [
+                        "A. will: chắc là (độ chắc chắn cao)",
+                        "B. can't: không thể nào",
+                        "C. mustn't: cấm",
+                        "D. shouldn't: không nên"
+                    ],
+                    sentenceTrans: "— 'Có ai ở ngoài cửa kìa.' — 'Chắc là người đưa thư đấy.'",
+                    whyCorrect: "Chọn A ('will') dùng để phỏng đoán sự việc gần như chắc chắn xảy ra ở hiện tại/tương lai[cite: 36].",
+                    whyWrong: "B, C, D mang nghĩa phủ định hoặc cấm đoán không hợp ngữ cảnh."
+                }
+            },
+            {
+                type: "mcq",
+                level: "easy",
+                levelLabel: "Bài 1: Cơ bản",
+                q: "I appreciate his ______ answer, even though it was rather harsh.",
+                options: ["blunt", "ambiguous", "illegible", "vague"],
+                answer: "blunt",
+                exp: {
+                    translations: [
+                        "A. blunt (adj): thẳng thừng, bộc trực",
+                        "B. ambiguous (adj): mơ hồ",
+                        "C. illegible (adj): khó đọc",
+                        "D. vague (adj): mập mờ"
+                    ],
+                    sentenceTrans: "Tôi đánh giá cao câu trả lời thẳng thừng của anh ấy, mặc dù nó khá cay nghiệt.",
+                    whyCorrect: "Chọn A ('blunt') chỉ phong cách giao tiếp nói thẳng không kiêng nể[cite: 34].",
+                    whyWrong: "B, C, D không phù hợp với ngữ cảnh đánh giá lời nói thẳng."
+                }
+            },
+            {
+                type: "mcq",
+                level: "easy",
+                levelLabel: "Bài 1: Cơ bản",
+                q: "He loves to ______ about his new luxury car whenever friends gather.",
+                options: ["boast", "denounce", "mumble", "quibble"],
+                answer: "boast",
+                exp: {
+                    translations: [
+                        "A. boast (v): khoe khoang, tự phụ",
+                        "B. denounce (v): lên án",
+                        "C. mumble (v): lầm bầm",
+                        "D. quibble (v): cãi vặt"
+                    ],
+                    sentenceTrans: "Anh ấy thích khoe khoang về chiếc xe hơi sang trọng mới của mình mỗi khi bạn bè tụ tập.",
+                    whyCorrect: "Chọn A vì 'boast about' nghĩa là khoe khoang[cite: 34].",
+                    whyWrong: "B, C, D sai nghĩa từ vựng."
+                }
+            },
+            {
+                type: "mcq",
+                level: "easy",
+                levelLabel: "Bài 1: Cơ bản",
+                q: "The technical manual was so complex that the new interns could hardly ______ it.",
+                options: ["comprehend", "disclose", "exaggerate", "flatter"],
+                answer: "comprehend",
+                exp: {
+                    translations: [
+                        "A. comprehend (v): hiểu, lĩnh hội",
+                        "B. disclose (v): tiết lộ",
+                        "C. exaggerate (v): phóng đại",
+                        "D. flatter (v): nịnh hót"
+                    ],
+                    sentenceTrans: "Sách hướng dẫn kỹ thuật quá phức tạp đến mức các thực tập sinh mới hầu như không thể hiểu nổi.",
+                    whyCorrect: "Chọn A ('comprehend') chỉ sự thấu hiểu tài liệu khó[cite: 34].",
+                    whyWrong: "B, C, D không phù hợp nghĩa."
+                }
+            },
+            // Gap Fill Easy (11 - 20)
+            {
+                type: "gap",
+                level: "easy",
+                levelLabel: "Bài 1: Cơ bản (Điền từ)",
+                q: "Luckily, she [GAP] to finish the press article just in time before the deadline.",
+                options: ["was able", "could", "can", "will"],
+                answer: "was able",
+                exp: {
+                    translations: [
+                        "A. was able: đã có thể (trong 1 dịp cụ thể quá khứ)",
+                        "B. could: có thể",
+                        "C. can: có thể",
+                        "D. will: sẽ"
+                    ],
+                    sentenceTrans: "May mắn thay, cô ấy đã kịp hoàn thành bài báo đúng hạn trước thời hạn chót.",
+                    whyCorrect: "Chọn A vì ta dùng 'was able to' thay cho 'could' khi nói về khả năng thành công trong một tình huống cụ thể ở quá khứ[cite: 35].",
+                    whyWrong: "B, C, D sai quy tắc ngữ pháp thời quá khứ đơn."
+                }
+            },
+            {
+                type: "gap",
+                level: "easy",
+                levelLabel: "Bài 1: Cơ bản (Điền từ)",
+                q: "[GAP] you better check that these factual details are actually true?",
+                options: ["Hadn't", "Shouldn't", "Haven't", "Weren't"],
+                answer: "Hadn't",
+                exp: {
+                    translations: [
+                        "A. Hadn't (trong 'Hadn't you better...'): Chẳng phải tốt hơn là...",
+                        "B. Shouldn't: Lẽ ra không nên",
+                        "C. Haven't: Không có",
+                        "D. Weren't: Không phải"
+                    ],
+                    sentenceTrans: "Chẳng phải tốt hơn là bạn nên kiểm tra lại xem các chi tiết thực tế này có thực sự đúng không sao?",
+                    whyCorrect: "Chọn A vì cấu trúc 'had better' ở thể phủ định khi đặt câu hỏi khuyên can dùng 'hadn't you better'[cite: 35].",
+                    whyWrong: "B, C, D không đúng cấu trúc cố định của bán modal này."
+                }
+            },
+            {
+                type: "gap",
+                level: "easy",
+                levelLabel: "Bài 1: Cơ bản (Điền from)",
+                q: "We may [GAP] well watch this documentary as there is nothing else interesting on TV.",
+                options: ["as", "so", "too", "also"],
+                answer: "as",
+                exp: {
+                    translations: [
+                        "A. as (trong 'may/might as well'): thà... còn hơn / cứ làm đi vì không có lựa chọn nào tốt hơn",
+                        "B. so: vậy",
+                        "C. too: quá",
+                        "D. also: cũng"
+                    ],
+                    sentenceTrans: "Chúng ta cứ xem bộ phim tài liệu này cũng được vì chẳng có gì khác hay ho hơn trên TV.",
+                    whyCorrect: "Chọn A vì cụm cố định 'may as well' dùng để đưa ra gợi ý khi không có phương án nào tối ưu hơn[cite: 35].",
+                    whyWrong: "B, C, D sai cụm cấu trúc cố định."
+                }
+            },
+            {
+                type: "gap",
+                level: "easy",
+                levelLabel: "Bài 1: Cơ bản (Điền từ)",
+                q: "You'll [GAP] to do quite a lot of background research before writing this editorial report.",
+                options: ["have", "must", "should", "need"],
+                answer: "have",
+                exp: {
+                    translations: [
+                        "A. have (trong 'will have to'): sẽ phải",
+                        "B. must: phải",
+                        "C. should: nên",
+                        "D. need: cần"
+                    ],
+                    sentenceTrans: "Bạn sẽ phải làm khá nhiều nghiên cứu nền tảng trước khi viết bản báo cáo xã luận này.",
+                    whyCorrect: "Chọn A vì diễn tả nghĩa vụ trong tương lai dùng 'will have to'[cite: 36].",
+                    whyWrong: "B ('must') không đi trực tiếp với 'to do' theo cách này ở tương lai."
+                }
+            },
+            {
+                type: "gap",
+                level: "easy",
+                levelLabel: "Bài 1: Cơ bản (Điền từ)",
+                q: "In the past, political figures didn't [GAP] to deal with being in a 24-hour media spotlight.",
+                options: ["have", "need", "must", "ought"],
+                answer: "have",
+                exp: {
+                    translations: [
+                        "A. have (trong 'didn't have to'): không phải",
+                        "B. need: cần",
+                        "C. must: phải",
+                        "D. ought: nên"
+                    ],
+                    sentenceTrans: "Trong quá khứ, các nhân vật chính trị không phải đối mặt với việc bị soi mói dưới ánh đèn sân khấu truyền thông 24/7.",
+                    whyCorrect: "Chọn A vì 'didn't have to' diễn tả sự thiếu nghĩa vụ trong quá khứ[cite: 36].",
+                    whyWrong: "B, C, D không kết hợp chuẩn xác với 'didn't ... to'."
+                }
+            },
+            {
+                type: "gap",
+                level: "easy",
+                levelLabel: "Bài 1: Cơ bản (Điền từ)",
+                q: "I accidentally [GAP] out the confidential details of the meeting before stopping myself.",
+                options: ["blurted", "passed", "set", "dried"],
+                answer: "blurted",
+                exp: {
+                    translations: [
+                        "A. blurted (trong 'blurt out'): buột miệng nói ra",
+                        "B. passed: chuyển",
+                        "C. set: đặt",
+                        "D. dried: làm khô"
+                    ],
+                    sentenceTrans: "Tôi đã vô tình buột miệng nói ra các chi tiết bảo mật của cuộc họp trước khi kịp dừng lại.",
+                    whyCorrect: "Chọn A vì Phrasal verb 'blurt out' nghĩa là lỡ miệng thốt ra điều bí mật[cite: 34].",
+                    whyWrong: "B, C, D không tạo thành cụm từ đúng nghĩa."
+                }
+            },
+            {
+                type: "gap",
+                level: "easy",
+                levelLabel: "Bài 1: Cơ bản (Điền từ)",
+                q: "Could you please pass [GAP] this urgent message to the rest of the newsroom staff?",
+                options: ["on", "out", "over", "round"],
+                answer: "on",
+                exp: {
+                    translations: [
+                        "A. on (trong 'pass on'): truyền đạt, chuyển tiếp",
+                        "B. out: ra ngoài",
+                        "C. over: qua",
+                        "D. round: quanh",
+                    ],
+                    sentenceTrans: "Bạn có thể vui lòng chuyển tiếp tin nhắn khẩn cấp này cho phần còn lại của nhân viên phòng biên tập được không?",
+                    whyCorrect: "Chọn A vì Phrasal verb 'pass on' nghĩa là chuyển tin nhắn cho người khác[cite: 34].",
+                    whyWrong: "B, C, D thay đổi giới từ làm sai nghĩa."
+                }
+            },
+            {
+                type: "gap",
+                level: "easy",
+                levelLabel: "Bài 1: Cơ bản (Điền từ)",
+                q: "Local citizens are encouraged to speak [GAP] against injustice in community media.",
+                options: ["out", "up", "down", "over"],
+                answer: "out",
+                exp: {
+                    translations: [
+                        "A. speak out: dũng cảm lên tiếng công khai",
+                        "B. speak up: nói lớn hơn",
+                        "C. speak down: nói bề trên",
+                        "D. speak over: nói đè"
+                    ],
+                    sentenceTrans: "Người dân địa phương được khuyến khích dũng cảm lên tiếng chống lại sự bất công trên các phương tiện truyền thông cộng đồng.",
+                    whyCorrect: "Chọn A vì 'speak out' nghĩa là công khai bày tỏ quan điểm phản đối[cite: 34].",
+                    whyWrong: "B, C, D không kết hợp với 'against injustice'."
+                }
+            },
+            {
+                type: "gap",
+                level: "easy",
+                levelLabel: "Bài 1: Cơ bản (Điền từ)",
+                q: "The nervous TV anchor forgot her script and dried [GAP] right during the live broadcast.",
+                options: ["up", "out", "off", "down"],
+                answer: "up",
+                exp: {
+                    translations: [
+                        "A. up (trong 'dry up'): tịt ngòi, ngưng nói vì quên",
+                        "B. out: ngoài",
+                        "C. off: tắt",
+                        "D. down: xuống"
+                    ],
+                    sentenceTrans: "Nữ phát thanh viên TV lo lắng đã quên kịch bản và tịt ngòi ngay trong buổi phát sóng trực tiếp.",
+                    whyCorrect: "Chọn A vì 'dry up' chỉ việc người nói đột ngột quên sạch lời[cite: 34].",
+                    whyWrong: "B, C, D sai giới từ cố định."
+                }
+            },
+            {
+                type: "gap",
+                level: "easy",
+                levelLabel: "Bài 1: Cơ bản (Điền từ)",
+                q: "The editor decided to [GAP] the reporter's credentials before publishing the controversial piece.",
+                options: ["confirm", "allege", "rant", "stutter"],
+                    answer: "confirm",
+                    exp: {
+                    translations: [
+                        "A. confirm (v): xác nhận",
+                        "B. allege (v): cáo buộc",
+                        "C. rant (v): quát tháo",
+                        "D. stutter (v): nói lắp"
+                    ],
+                    sentenceTrans: "Tổng biên tập quyết định xác minh chứng chỉ của phóng viên trước khi xuất bản bài báo gây tranh cãi.",
+                    whyCorrect: "Chọn A vì 'confirm' có nghĩa là kiểm tra xác thực thông tin[cite: 34].",
+                    whyWrong: "B, C, D không phù hợp ngữ cảnh biên tập báo chí."
+                }
+            },
+
+            // ==================== BÀI 2: NÂNG CAO (20 CÂU: 10 MCQ + 10 GAP FILL) ====================
+            {
+                type: "mcq",
+                level: "medium",
+                levelLabel: "Bài 2: Nâng cao",
+                q: "You ______ have asked the Prime Minister much more searching questions. I wonder why you didn't.",
+                options: ["could", "must", "will", "should"],
+                answer: "could",
+                exp: {
+                    translations: [
+                        "A. could have asked: đáng lẽ đã có thể hỏi (nhưng đã không làm)",
+                        "B. must have asked: chắc hẳn đã hỏi",
+                        "C. will have asked: sẽ hỏi",
+                        "D. should have asked: đáng lẽ nên hỏi (trách móc đạo đức)"
+                    ],
+                    sentenceTrans: "Đáng lẽ bạn đã có thể đặt cho Thủ tướng nhiều câu hỏi xoáy sâu hơn nhiều. Tôi tự hỏi tại sao bạn lại không làm thế.",
+                    whyCorrect: "Chọn A vì 'could have' diễn tả khả năng lý thuyết trong quá khứ mà thực tế người nói không làm[cite: 35].",
+                    whyWrong: "B, C, D diễn tả ý nghĩa phỏng đoán chắc chắn hoặc trách nhiệm đạo đức thay vì khả năng giả định quá khứ."
+                }
+            },
+            {
+                type: "mcq",
+                level: "medium",
+                levelLabel: "Bài 2: Nâng cao",
+                q: "You ______ have told me you were going to be late! I waited for an hour in the cold.",
+                options: ["might", "must", "should", "will"],
+                answer: "might",
+                exp: {
+                    translations: [
+                        "A. might have told: lẽ ra phải nói (thể hiện sự bực bội)",
+                        "B. must have told: chắc hẳn đã nói",
+                        "C. should have told: đáng lẽ nên nói",
+                        "D. will have told: sẽ nói"
+                    ],
+                    sentenceTrans: "Lẽ ra bạn phải báo cho tôi biết là bạn sẽ đến muộn chứ! Tôi đã đợi suốt một tiếng đồng hồ trong giá lạnh.",
+                    whyCorrect: "Chọn A vì cấu trúc 'could/might have done' dùng để biểu thị sự bực bội/phàn nàn về hành vi quá khứ của người khác[cite: 36].",
+                    whyWrong: "B, C, D không mang sắc thái biểu cảm trách móc bực bội đặc trưng này."
+                }
+            },
+            {
+                type: "mcq",
+                level: "medium",
+                levelLabel: "Bài 2: Nâng cao",
+                q: "He ______ slam the front door in anger every single time he storms out of the house.",
+                options: ["will", "would", "must", "should"],
+                answer: "will",
+                exp: {
+                    translations: [
+                        "A. will: hay (chỉ thói quen bực mình ở hiện tại)",
+                        "B. would: hay (quá khứ)",
+                        "C. must: chắc là",
+                        "D. should: nên"
+                    ],
+                    sentenceTrans: "Anh ta cứ hay đập sầm cửa trước trong cơn tức giận mỗi khi hầm hố bước ra khỏi nhà.",
+                    whyCorrect: "Chọn A vì dùng 'will' để chỉ hành vi lặp đi lặp lại gây khó chịu ở hiện tại (criticising general behaviour)[cite: 36].",
+                    whyWrong: "B dùng cho quá khứ. C và D không dùng để chỉ trích thói quen."
+                }
+            },
+            {
+                type: "mcq",
+                level: "medium",
+                levelLabel: "Bài 2: Nâng cao",
+                q: "You ______ take the family car right on the evening when I desperately needed to go out!",
+                options: ["would", "will", "should", "must"],
+                answer: "would",
+                exp: {
+                    translations: [
+                        "A. would: cứ đúng lúc lại (chỉ trích hành vi gây phiền toái cụ thể)",
+                        "B. will: hiện tại",
+                        "C. should: nên",
+                        "D. must: phải"
+                    ],
+                    sentenceTrans: "Cứ đúng lúc tôi cực kỳ cần đi ra ngoài thì anh lại cứ khăng khăng lấy đi chiếc xe ô tô của gia đình!",
+                    whyCorrect: "Chọn A vì 'would' dùng để chỉ trích một ví dụ cụ thể về hành vi gây khó chịu của ai đó[cite: 36].",
+                    whyWrong: "B, C, D không diễn tả được sắc thái phàn nàn bực dọc đặc thù này."
+                }
+            },
+            {
+                type: "mcq",
+                level: "medium",
+                levelLabel: "Bài 2: Nâng cao",
+                q: "'There is someone knocking.' — 'That ______ be the investigative reporter we invited.'",
+                options: ["must", "can't", "won't", "shouldn't"],
+                answer: "must",
+                exp: {
+                    translations: [
+                        "A. must: chắc chắn là",
+                        "B. can't: không thể là",
+                        "C. won't: sẽ không",
+                        "D. shouldn't: không nên"
+                    ],
+                    sentenceTrans: "— 'Có ai đang gõ cửa kìa.' — 'Chắc chắn là phóng viên điều tra mà chúng ta mời đến rồi.'",
+                    whyCorrect: "Chọn A vì 'must' diễn tả sự chắc chắn hoặc gần như chắc chắn ở hiện tại dựa trên logic[cite: 36].",
+                    whyWrong: "B, C, D mang nghĩa phủ định trái ngược ngữ cảnh."
+                }
+            },
+            {
+                type: "mcq",
+                level: "medium",
+                levelLabel: "Bài 2: Nâng cao",
+                q: "'She should have finished writing her news editorial by now.' — 'She ______ well have done, but I haven't checked yet.'",
+                options: ["may", "must", "can", "should"],
+                answer: "may",
+                exp: {
+                    translations: [
+                        "A. may well have done: rất có thể là đã làm rồi",
+                        "B. must well have done: sai ngữ pháp",
+                        "C. can well have done: không dùng cấu trúc này",
+                        "D. should well have done: không hợp lý"
+                    ],
+                    sentenceTrans: "— 'Lẽ ra cô ấy phải viết xong bài xã luận tin tức vào lúc này rồi chứ.' — 'Rất có thể là cô ấy đã làm rồi đấy, nhưng tôi chưa kiểm tra lại.'" ,
+                    whyCorrect: "Chọn A vì cấu trúc 'may/might well have done' diễn tả khả năng xác suất cao về một việc trong quá khứ[cite: 36].",
+                    whyWrong: "B, C, D sai ngữ pháp kết hợp từ."
+                }
+            },
+            {
+                type: "mcq",
+                level: "medium",
+                levelLabel: "Bài 2: Nâng cao",
+                q: "Finding an affordable apartment in downtown Hanoi truly answered our ______.",
+                options: ["prayers", "letters", "books", "records"],
+                answer: "prayers",
+                exp: {
+                    translations: [
+                        "A. prayers (trong 'answer sb's prayers'): đáp lại lời cầu nguyện/mong ước",
+                        "B. letters: lá thư",
+                        "C. books: sách",
+                        "D. records: hồ sơ"
+                    ],
+                    sentenceTrans: "Việc tìm được một căn hộ giá cả phải chăng ở trung tâm Hà Nội thực sự đã đáp lại mong ước bấy lâu của chúng tôi.",
+                    whyCorrect: "Chọn A vì thành ngữ 'answer sb's prayers' có nghĩa là giải quyết trọn vẹn điều mong mỏi.",
+                    whyWrong: "B, C, D không kết hợp tạo thành thành ngữ có nghĩa này."
+                }
+            },
+            {
+                type: "mcq",
+                level: "medium",
+                levelLabel: "Bài 2: Nâng cao",
+                q: "I was completely misled because I got the wrong end of the ______ about the broadcast schedule.",
+                options: ["stick", "rod", "pole", "baton"],
+                answer: "stick",
+                exp: {
+                    translations: [
+                        "A. stick (trong 'get the wrong end of the stick'): hiểu lầm bét nhè",
+                        "B. rod: cần câu",
+                        "C. pole: cây sào",
+                        "D. baton: gậy chỉ huy"
+                    ],
+                    sentenceTrans: "Tôi đã hoàn toàn bị dẫn dắt sai lệch vì tôi đã hiểu sai bét nhè về lịch phát sóng.",
+                    whyCorrect: "Chọn A vì thành ngữ 'get the wrong end of the stick' nghĩa là hiểu hoàn toàn sai sự việc.",
+                    whyWrong: "B, C, D sai từ vựng cấu định."
+                }
+            },
+            {
+                type: "mcq",
+                level: "medium",
+                levelLabel: "Bài 2: Nâng cao",
+                q: "Please keep this confidential media strategy strictly under your ______ until tomorrow's press release.",
+                options: ["hat", "coat", "hood", "cap"],
+                answer: "hat",
+                exp: {
+                    translations: [
+                        "A. hat (trong 'keep under your hat'): giữ bí mật tuyệt đối",
+                        "B. coat: áo khoác",
+                        "C. hood: mũ trùm",
+                        "D. cap: mũ lưỡi trai"
+                    ],
+                    sentenceTrans: "Xin hãy giữ kín chiến lược truyền thông bảo mật này tuyệt đối cho đến buổi họp báo ngày mai.",
+                    whyCorrect: "Chọn A vì thành ngữ 'keep sth under your hat' có nghĩa là giữ kín bí mật.",
+                    whyWrong: "B, C, D không nằm trong thành ngữ này."
+                }
+            },
+            {
+                type: "mcq",
+                level: "medium",
+                levelLabel: "Bài 2: Nâng cao",
+                q: "Her facial expression spoke ______ about how deeply disappointed she was with the tabloid article.",
+                options: ["volumes", "words", "letters", "papers"],
+                answer: "volumes",
+                exp: {
+                    translations: [
+                        "A. volumes (trong 'speak volumes'): minh chứng rành rành, nói lên tất cả",
+                        "B. words: từ ngữ",
+                        "C. letters: chữ cái",
+                        "D. papers: giấy tờ"
+                    ],
+                    sentenceTrans: "Biểu cảm khuôn mặt của cô ấy đã nói lên tất cả về việc cô ấy thất vọng sâu sắc thế nào với bài báo lá cải đó.",
+                    whyCorrect: "Chọn A vì thành ngữ 'speak volumes' nghĩa là bộc lộ rõ ràng hàm ý mà không cần dùng lời nói.",
+                    whyWrong: "B, C, D sai cấu trúc."
+                }
+            },
+            // Gap Fill Medium (31 - 40)
+            {
+                type: "gap",
+                level: "medium",
+                levelLabel: "Bài 2: Nâng cao (Điền từ)",
+                q: "It's rather strange that you [GAP] say that after everything we discussed yesterday.",
+                options: ["should", "would", "might", "could"],
+                answer: "should",
+                exp: {
+                    translations: [
+                        "A. should: nên (dùng sau mệnh đề thể hiện sự ngạc nhiên/quan trọng)",
+                        "B. would: sẽ",
+                        "C. might: có lẽ",
+                        "D. could: có thể"
+                    ],
+                    sentenceTrans: "Khá là lạ lùng khi bạn lại đi nói câu đó sau tất cả những gì chúng ta đã thảo luận ngày hôm qua.",
+                    whyCorrect: "Chọn A vì 'should' được dùng trong mệnh đề 'that' sau các từ biểu thị cảm xúc ngạc nhiên/phản ứng đánh giá ('It's strange that...')[cite: 36].",
+                    whyWrong: "B, C, D không đúng cấu trúc ngữ pháp nâng cao này."
+                }
+            },
+            {
+                type: "gap",
+                level: "medium",
+                levelLabel: "Bài 2: Nâng cao (Điền từ)",
+                q: "The defense lawyer successfully set the record [GAP] regarding the leaked interview transcripts.",
+                options: ["straight", "clear", "flat", "right"],
+                answer: "straight",
+                exp: {
+                    translations: [
+                        "A. straight (trong 'set/put the record straight'): đính chính lại sự thật",
+                        "B. clear: trong sạch",
+                        "C. flat: phẳng",
+                        "D. right: đúng"
+                    ],
+                    sentenceTrans: "Luật sư bào chữa đã đính chính lại sự thật thành công liên quan đến các bản ghi chép phỏng vấn bị rò rỉ.",
+                    whyCorrect: "Chọn A vì cụm thành ngữ cố định là 'set the record straight'[cite: 34].",
+                    whyWrong: "B, C, D sai từ vựng đi kèm."
+                }
+            },
+            {
+                type: "gap",
+                level: "medium",
+                levelLabel: "Bài 2: Nâng cao (Điền từ)",
+                q: "Rumors of the merger got [GAP] the entire corporate office within a matter of hours.",
+                options: ["round", "through", "across", "over"],
+                answer: "round",
+                exp: {
+                    translations: [
+                        "A. round (trong 'get round/around'): tin tức lan rộng",
+                        "B. through: xuyên",
+                        "C. across: qua",
+                        "D. over: vượt",
+                    ],
+                    sentenceTrans: "Tin đồn về vụ sáp nhập đã lan truyền khắp toàn bộ văn phòng công ty chỉ trong vòng vài giờ.",
+                    whyCorrect: "Chọn A vì Phrasal verb 'get round' dùng cho tin tức lan truyền nhanh chóng[cite: 33].",
+                    whyWrong: "B, C, D không tạo thành cụm từ chỉ sự lan truyền tin tức."
+                }
+            },
+            {
+                type: "gap",
+                level: "medium",
+                levelLabel: "Bài 2: Nâng cao (Điền từ)",
+                q: "He managed to talk his way [GAP] of getting a heavy speeding fine by charming the officer.",
+                options: ["out", "into", "away", "off"],
+                answer: "out",
+                exp: {
+                    translations: [
+                        "A. out (trong 'talk one's way out of'): khéo miệng thoát tội/phạt",
+                        "B. into: vào",
+                        "C. away: đi",
+                        "D. off: khỏi"
+                    ],
+                    sentenceTrans: "Anh ta đã khéo léo dùng lời lẽ để thoát khỏi việc bị phạt tiền chạy quá tốc độ nhờ nịnh nọt viên cảnh sát.",
+                    whyCorrect: "Chọn A vì cụm 'talk your way out of doing sth' nghĩa là dùng lời nói để trốn tránh hậu quả[cite: 34].",
+                    whyWrong: "B ('into') mang nghĩa ngược lại (thuyết phục làm gì/vướng vào)."
+                }
+            },
+            {
+                type: "gap",
+                level: "medium",
+                levelLabel: "Bài 2: Nâng cao (Điền từ)",
+                q: "The investigative journalists agreed to follow the strict ethical code [GAP] the letter.",
+                options: ["to", "by", "with", "in"],
+                answer: "to",
+                exp: {
+                    translations: [
+                        "A. to (trong 'to the letter'): tuân thủ tuyệt đối từng chữ",
+                        "B. by: bởi",
+                        "C. with: với",
+                        "D. in: trong"
+                    ],
+                    sentenceTrans: "Các nhà báo điều tra đồng ý tuân thủ bộ quy tắc đạo đức nghiêm ngặt một cách chính xác từng li từng tí.",
+                    whyCorrect: "Chọn A vì thành ngữ 'to the letter' có nghĩa là chính xác hoàn toàn không sai lệch[cite: 34].",
+                    whyWrong: "B, C, D sai giới từ trong cụm."
+                }
+            },
+            {
+                type: "gap",
+                level: "medium",
+                levelLabel: "Bài 2: Nâng cao (Điền từ)",
+                q: "I heard through the [GAP] that our local newspaper is going to change its chief editor.",
+                options: ["grapevine", "pipeline", "network", "wire"],
+                answer: "grapevine",
+                exp: {
+                    translations: [
+                        "A. grapevine (trong 'hear through the grapevine'): nghe tin đồn truyền miệng",
+                        "B. pipeline: đường ống",
+                        "C. network: mạng lưới",
+                        "D. wire: dây thép"
+                    ],
+                    sentenceTrans: "Tôi nghe đồn qua đường rỉ tai truyền miệng rằng tờ báo địa phương của chúng ta sắp đổi tổng biên tập.",
+                    whyCorrect: "Chọn A vì thành ngữ 'hear through the grapevine' chỉ tin đồn lan truyền qua lời nói miệng.",
+                    whyWrong: "B, C, D không đúng tên gọi trong idiom."
+                }
+            },
+            {
+                type: "gap",
+                level: "medium",
+                levelLabel: "Bài 2: Nâng cao (Điền từ)",
+                q: "The senior politician laid his cards on the [GAP] and revealed his true media campaign plans.",
+                options: ["table", "desk", "board", "floor"],
+                answer: "table",
+                exp: {
+                    translations: [
+                        "A. table (trong 'lay cards on the table'): ngửa bài công khai ý định",
+                        "B. desk: bàn làm việc",
+                        "C. board: bảng",
+                        "D. floor: sàn"
+                    ],
+                    sentenceTrans: "Chính trị gia kỳ cựu đã ngửa bài công khai minh bạch và tiết lộ các kế hoạch chiến dịch truyền thông thực sự của ông.",
+                    whyCorrect: "Chọn A vì thành ngữ 'lay your cards on the table' nghĩa là thành thật bày tỏ dự định.",
+                    whyWrong: "B, C, D sai từ vựng gốc của idiom."
+                }
+            },
+            {
+                type: "gap",
+                level: "medium",
+                levelLabel: "Bài 2: Nâng cao (Điền từ)",
+                q: "Was it really necessary that Alan [GAP] have been invited to the heated editorial meeting?",
+                options: ["should", "would", "might", "could"],
+                answer: "should",
+                exp: {
+                    translations: [
+                        "A. should: nên (dùng sau tính từ biểu thị sự cần thiết/phản ứng)",
+                        "B. would: sẽ",
+                        "C. might: có thể",
+                        "D. could: có thể"
+                    ],
+                    sentenceTrans: "Có thực sự cần thiết là phải mời Alan tham gia cuộc họp biên tập đầy căng thẳng đó hay không?",
+                    whyCorrect: "Chọn A vì sau cụm từ biểu thị tính quan trọng/cần thiết ('Was it necessary that...'), mệnh đề phía sau thường dùng 'should'[cite: 36].",
+                    whyWrong: "B, C, D sai cấu trúc ngữ pháp học thuật."
+                }
+            },
+            {
+                type: "gap",
+                level: "medium",
+                levelLabel: "Bài 2: Nâng cao (Điền từ)",
+                q: "We might [GAP] well watch this prerecorded talk show since there's nothing else on.",
+                options: ["as", "so", "too", "also"],
+                answer: "as",
+                exp: {
+                    translations: [
+                        "A. as (trong 'might as well'): thà cứ... còn hơn",
+                        "B. so: vậy",
+                        "C. too: quá",
+                        "D. also: cũng"
+                    ],
+                    sentenceTrans: "Chúng ta cứ xem chương trình trò chuyện được ghi hình trước này cũng được vì chẳng có gì khác chiếu cả.",
+                    whyCorrect: "Chọn A vì cấu trúc 'might as well' diễn tả sự chấp nhận một lựa chọn vì không có phương án nào tốt hơn[cite: 35].",
+                    whyWrong: "B, C, D không đúng cấu trúc."
+                }
+            },
+            {
+                type: "gap",
+                level: "medium",
+                levelLabel: "Bài 2: Nâng cao (Điền từ)",
+                q: "Without cultural context, translated idioms in media coverage often lose their original [GAP].",
+                options: ["meaning", "meaningful", "meaningless", "meaningfulness"],
+                answer: "meaning",
+                exp: {
+                    translations: [
+                        "A. meaning (n): ý nghĩa",
+                        "B. meaningful (adj): có ý nghĩa",
+                        "C. meaningless (adj): vô nghĩa",
+                        "D. meaningfulness (n): tính có ý nghĩa"
+                    ],
+                    sentenceTrans: "Nếu không có ngữ cảnh văn hóa, các thành ngữ được dịch trong các bản tin truyền thông thường đánh mất ý nghĩa nguyên bản của chúng.",
+                    whyCorrect: "Chọn A vì sau tính từ sở hữu 'original' cần một danh từ số ít chỉ nội dung là 'meaning'[cite: 33].",
+                    whyWrong: "B, C là tính từ. D là danh từ trừu tượng không phù hợp."
+                }
+            },
+
+            // ==================== BÀI 3: CHUYÊN SÂU C1/C2 (10 CÂU: 5 MCQ + 5 GAP FILL) ====================
+            {
+                type: "mcq",
+                level: "hard",
+                levelLabel: "Bài 3: Chuyên sâu",
+                q: "The language in the tabloid pamphlet was deemed so vulgar that it was completely ______. (PRINT)",
+                options: ["unprintable", "printable", "printout", "imprinted"],
+                answer: "unprintable",
+                exp: {
+                    translations: [
+                        "A. unprintable (adj): không thể in ra được (vì quá tục tĩu/xúc phạm)",
+                        "B. printable (adj): có thể in",
+                        "C. printout (n): bản in máy",
+                        "D. imprinted (v-ed): in hằn"
+                    ],
+                    sentenceTrans: "Ngôn từ trong tập tài liệu lá cải bị coi là quá thô tục đến mức hoàn toàn không thể xuất bản in ấn.",
+                    whyCorrect: "Chọn A vì tính từ 'unprintable' là từ chuyên ngành xuất bản chỉ văn bản chứa từ ngữ bậy bạ không được phép in.",
+                    whyWrong: "B trái nghĩa. C là danh từ bản in. D là động từ quá khứ."
+                }
+            },
+            {
+                type: "mcq",
+                level: "hard",
+                levelLabel: "Bài 3: Chuyên sâu",
+                q: "The contract's archaic legal ______ made it virtually impenetrable to ordinary readers. (PHRASE)",
+                options: ["phraseology", "paraphrase", "phrasing", "rephrase"],
+                answer: "phraseology",
+                exp: {
+                    translations: [
+                        "A. phraseology (n): thuật ngữ chuyên ngành / cách dùng từ ngữ đặc thù",
+                        "B. paraphrase (v/n): diễn giải",
+                        "C. phrasing (n): cách đặt câu",
+                        "D. rephrase (v): nói lại"
+                    ],
+                    sentenceTrans: "Hệ thống thuật ngữ pháp lý cổ xưa của bản hợp đồng khiến cho những độc giả thông thường hầu như không tài nào hiểu nổi.",
+                    whyCorrect: "Chọn A vì 'phraseology' là danh từ chỉ hệ thống từ vựng và cách hành văn đặc trưng của một lĩnh vực chuyên môn.",
+                    whyWrong: "B, C, D không mang ý nghĩa là hệ thống thuật ngữ chuyên môn."
+                }
+            },
+            {
+                type: "mcq",
+                level: "hard",
+                levelLabel: "Bài 3: Chuyên sâu",
+                q: "No objective analyst can ______ his profound influence on the evolution of modern media broadcasting. (SAY)",
+                options: ["gainsay", "unsaid", "saying", "rephrase"],
+                answer: "gainsay",
+                exp: {
+                    translations: [
+                        "A. gainsay (v): phủ nhận, chối cãi, bác bỏ (từ học thuật cao cấp C1/C2)",
+                        "B. unsaid (adj): không nói ra",
+                        "C. saying (n): câu nói, ngạn ngữ",
+                        "D. rephrase (v): diễn đạt lại"
+                    ],
+                    sentenceTrans: "Không một nhà phân tích khách quan nào có thể phủ nhận ảnh hưởng sâu sắc của ông đối với sự tiến hóa của phát sóng truyền thông hiện đại.",
+                    whyCorrect: "Chọn A vì động từ C1/C2 'gainsay' (thuộc họ từ say) có nghĩa là phủ nhận hoặc tranh cãi về một sự thật hiển nhiên.",
+                    whyWrong: "B là tính từ. C là danh từ. D là diễn đạt lại."
+                }
+            },
+            {
+                type: "mcq",
+                level: "hard",
+                levelLabel: "Bài 3: Chuyên sâu",
+                q: "During his five-year ______ of the national literary review, subscriber numbers doubled exponentially. (EDIT)",
+                options: ["editorship", "edition", "editorial", "editorially"],
+                answer: "editorship",
+                exp: {
+                    translations: [
+                        "A. editorship (n): nhiệm kỳ chủ bút / cương vị tổng biên tập",
+                        "B. edition (n): ấn bản",
+                        "C. editorial (n): bài xã luận",
+                        "D. editorially (adv): về mặt biên tập"
+                    ],
+                    sentenceTrans: "Trong suốt nhiệm kỳ tổng biên tập 5 năm của ông tại tạp chí phê bình văn học quốc gia, lượng thuê bao đã tăng theo cấp số nhân.",
+                    whyCorrect: "Chọn A vì 'editorship' chỉ chức vụ hoặc khoảng thời gian nắm giữ vị trí chủ bút đứng đầu tờ báo.",
+                    whyWrong: "B (edition) là lần tái bản sách. C (editorial) là bài xã luận. D là trạng từ."
+                }
+            },
+            {
+                type: "mcq",
+                level: "hard",
+                levelLabel: "Bài 3: Chuyên sâu",
+                q: "The forensic audit discovered documents that directly ______ several executive board members in the media bribery scandal. (IMPLY)",
+                options: ["implicated", "implied", "implicitly", "implication"],
+                answer: "implicated",
+                exp: {
+                    translations: [
+                        "A. implicated (v trong 'implicate sb in sth'): làm dính líu, vướng vào tội trạng",
+                        "B. implied (v): ngụ ý",
+                        "C. implicitly (adv): ngầm hiểu",
+                        "D. implication (n): hệ quả"
+                    ],
+                    sentenceTrans: "Cuộc kiểm toán pháp y đã phát hiện ra các tài liệu chỉ ra sự dính líu trực tiếp của một số thành viên ban điều hành vào bê bối hối lộ truyền thông.",
+                    whyCorrect: "Chọn A vì cấu trúc 'implicate sb in sth' là thuật ngữ pháp lý chỉ việc chứng cứ chứng minh ai có liên đới phạm pháp.",
+                    whyWrong: "B (implied) chỉ việc phát ngôn hàm ý bóng gió. C là trạng từ. D là danh từ."
+                }
+            },
+            // Gap Fill Hard (46 - 50)
+            {
+                type: "gap",
+                level: "hard",
+                levelLabel: "Bài 3: Chuyên sâu (Điền từ)",
+                q: "Her early childhood memories in the remote village left an indelible [GAP] upon her literary imagination. (PRINT)",
+                options: ["imprint", "printout", "printer", "printing"],
+                answer: "imprint",
+                exp: {
+                    translations: [
+                        "A. imprint (n trong 'leave an imprint upon'): dấu ấn sâu đậm",
+                        "B. printout (n): bản in máy tính",
+                        "C. printer (n): máy in",
+                        "D. printing (n): ngành in"
+                    ],
+                    sentenceTrans: "Những ký ức tuổi thơ sớm mai tại ngôi làng hẻo lánh đã để lại một dấu ấn không thể phai mờ lên trí tưởng tượng văn học của bà.",
+                    whyCorrect: "Chọn A vì thành ngữ học thuật 'leave an imprint upon/on sth' nghĩa là để lại dấu ấn sâu sắc khó phai.",
+                    whyWrong: "B, C, D không kết hợp được với cụm cố định này."
+                }
+            },
+            {
+                type: "gap",
+                level: "hard",
+                levelLabel: "Bài 3: Chuyên sâu (Điền từ)",
+                q: "To avoid severe accusations of plagiarism, academic researchers must accurately [GAP] the original text. (PHRASE)",
+                options: ["paraphrase", "phraseology", "phrasing", "rephrasing"],
+                answer: "paraphrase",
+                exp: {
+                    translations: [
+                        "A. paraphrase (v): diễn giải lại ý văn bằng từ ngữ của riêng mình",
+                        "B. phraseology (n): hệ thuật ngữ",
+                        "C. phrasing (n): cách hành văn",
+                        "D. rephrasing (n): việc diễn đạt lại"
+                    ],
+                    sentenceTrans: "Để tránh các cáo buộc đạo văn nghiêm trọng, các nhà nghiên cứu học thuật phải diễn giải lại văn bản gốc một cách chính xác.",
+                    whyCorrect: "Chọn A vì động từ 'paraphrase' là thuật ngữ nghiên cứu chỉ hành động tự viết lại nội dung người khác bằng từ ngữ khác.",
+                    whyWrong: "B, C, D không mang nghĩa là động từ thực hiện hành động diễn giải."
+                }
+            },
+            {
+                type: "gap",
+                level: "hard",
+                levelLabel: "Bài 3: Chuyên sâu (Điền từ)",
+                q: "The political speaker's discourse was full of empty [GAP] that failed to address the core national crisis. (STATE)",
+                options: ["overstatements", "statements", "understatements", "restatements"],
+                answer: "overstatements",
+                exp: {
+                    translations: [
+                        "A. overstatements (n - plural): những lời nói cường điệu, phóng đại thái quá",
+                        "B. statements: phát biểu",
+                        "C. understatements: nói giảm nói tránh",
+                        "D. restatements: sự phát biểu lại"
+                    ],
+                    sentenceTrans: "Bài diễn văn của diễn giả chính trị đầy những lời phóng đại rỗng tuếch không thể giải quyết được cuộc khủng hoảng cốt lõi của quốc gia.",
+                    whyCorrect: "Chọn A vì 'overstatement' (lời phóng đại) kết hợp hoàn hảo với tính từ 'empty' (rỗng tuếch, ba hoa)[cite: 36].",
+                    whyWrong: "B, C, D không tạo ra sắc thái nghĩa châm biếm lời nói ba hoa cường điệu."
+                }
+            },
+            {
+                type: "gap",
+                level: "hard",
+                levelLabel: "Bài 3: Chuyên sâu (Điền từ)",
+                q: "Look at the clearance sale sign above. The manager declared that all terms are strictly final, so no customer can [GAP] the store policy.",
+                options: ["gainsay", "unsaid", "saying", "rephrase"],
+                answer: "gainsay",
+                exp: {
+                    translations: [
+                        "A. gainsay (v): bác bỏ, phủ nhận",
+                        "B. unsaid (adj): không nói ra",
+                        "C. saying (n): ngạn ngữ",
+                        "D. rephrase (v): diễn đạt lại"
+                    ],
+                    sentenceTrans: "Hãy nhìn vào biển thông báo thanh lý ở trên. Người quản lý tuyên bố mọi điều khoản là quyết định cuối cùng, vì vậy không khách hàng nào có thể bác bỏ chính sách cửa hàng.",
+                    whyCorrect: "Chọn A vì 'gainsay' có nghĩa là bác bỏ hay cãi lại quy định chính thức.",
+                    whyWrong: "B, C, D không phù hợp ngữ pháp và ý nghĩa bác bỏ nội dung."
+                }
+            },
+            {
+                type: "gap",
+                level: "hard",
+                levelLabel: "Bài 3: Chuyên sâu (Điền từ)",
+                q: "Look at the phone text message displayed above. Sarah regrets that many bitter words were best left [GAP] during their harsh argument.",
+                options: ["unsaid", "gainsay", "saying", "paraphrase"],
+                answer: "unsaid",
+                exp: {
+                    translations: [
+                        "A. unsaid (adj trong 'leave sth unsaid'): không nói ra, giữ kín",
+                        "B. gainsay (v): bác bỏ",
+                        "C. saying (n): câu nói",
+                        "D. paraphrase (v): diễn giải"
+                    ],
+                    sentenceTrans: "Hãy nhìn vào tin nhắn điện thoại hiển thị ở trên. Sarah hối hận vì nhiều lời nói cay đắng tốt nhất nên được giữ kín không thốt ra trong cuộc tranh cãi gay gắt của họ.",
+                    whyCorrect: "Chọn A vì cấu trúc cố định 'leave sth unsaid' nghĩa là chọn cách im lặng không nói ra lời cay đắng.",
+                    whyWrong: "B, C, D sai từ loại và không thuộc cấu trúc cố định này."
+                }
+            }
+        ];
+
+        function shuffleArray(array) {
+            let arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        let userAnswers = {};
+        let shuffledQuestions = [];
+        let isSubmitted = false;
+        let currentLevelFilter = 'all';
+        let activeGapCardIndex = null;
+
+        function renderQuiz() {
+            const container = document.getElementById('quizContainer');
+            container.innerHTML = '';
+            userAnswers = {};
+            isSubmitted = false;
+
+            const shuffledRaw = shuffleArray(rawQuestionsData);
+
+            shuffledQuestions = shuffledRaw.map((item, index) => {
+                let shuffledOpts = [];
+                if (item.type === 'mcq') {
+                    shuffledOpts = shuffleArray(item.options);
+                } else {
+                    shuffledOpts = shuffleArray(item.options);
+                }
+                return {
+                    ...item,
+                    displayIndex: index + 1,
+                    shuffledOpts: shuffledOpts
+                };
+            });
+
+            shuffledQuestions.forEach((qData, qIndex) => {
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                card.id = `question-${qIndex}`;
+                card.dataset.level = qData.level;
+
+                const cardHeader = document.createElement('div');
+                cardHeader.className = 'card-header-badge';
+
+                const badgeGroup = document.createElement('div');
+                badgeGroup.className = 'badge-group';
+
+                const qNum = document.createElement('div');
+                qNum.className = 'question-number';
+                qNum.innerText = `Câu ${qIndex + 1} / ${shuffledQuestions.length}`;
+
+                const levelTag = document.createElement('div');
+                levelTag.className = `level-indicator level-${qData.level}`;
+                levelTag.innerText = qData.levelLabel;
+
+                badgeGroup.appendChild(qNum);
+                badgeGroup.appendChild(levelTag);
+
+                const statusBadge = document.createElement('div');
+                statusBadge.className = 'status-badge';
+                statusBadge.id = `badge-${qIndex}`;
+
+                cardHeader.appendChild(badgeGroup);
+                cardHeader.appendChild(statusBadge);
+
+                let formattedQText = qData.q;
+                if (qData.type === 'gap') {
+                    formattedQText = formattedQText.replace('[GAP]', `<span class="gap-slot" id="gap-slot-${qIndex}" onclick="openGapModal(${qIndex})">[ Chọn từ ]</span>`);
+                }
+
+                const qText = document.createElement('div');
+                qText.className = 'question-text';
+                qText.innerHTML = formattedQText;
+
+                card.appendChild(cardHeader);
+                card.appendChild(qText);
+
+                if (qData.type === 'mcq') {
+                    const optsGrid = document.createElement('div');
+                    optsGrid.className = 'options-grid';
+                    const prefixes = ['A', 'B', 'C', 'D'];
+
+                    qData.shuffledOpts.forEach((opt, optIdx) => {
+                        const btn = document.createElement('button');
+                        btn.className = 'option-btn';
+                        btn.id = `opt-${qIndex}-${optIdx}`;
+                        btn.onclick = () => handleSelectMCQ(qIndex, opt, btn);
+
+                        const prefix = document.createElement('span');
+                        prefix.className = 'option-prefix';
+                        prefix.innerText = prefixes[optIdx];
+
+                        const textSpan = document.createElement('span');
+                        textSpan.innerHTML = opt;
+
+                        btn.appendChild(prefix);
+                        btn.appendChild(textSpan);
+                        optsGrid.appendChild(btn);
+                    });
+                    card.appendChild(optsGrid);
+                }
+
+                const expBox = document.createElement('div');
+                expBox.className = 'explanation-box';
+                expBox.id = `explanation-${qIndex}`;
+
+                expBox.innerHTML = `
+                    <div class="explanation-title">
+                        💡 PHẦN GIẢI THÍCH CHI TIẾT (Ms Ngoc Hai FTU)
+                    </div>
+                    <div class="exp-section">
+                        <strong>1. Phân tích từ vựng/ngữ pháp 4 đáp án:</strong>
+                        <ul class="exp-options-list">
+                            ${qData.exp.translations.map(t => `<li>${t}</li>`).join('')}
+                        </ul>
+                    </div>
+                    <div class="exp-section">
+                        <strong>2. Dịch nghĩa toàn câu:</strong><br>
+                        <em>"${qData.exp.sentenceTrans}"</em>
+                    </div>
+                    <div class="exp-section">
+                        <strong>3. Tại sao chọn đáp án đúng?</strong><br>
+                        ${qData.exp.whyCorrect}
+                    </div>
+                    <div class="exp-section">
+                        <strong>4. Tại sao các đáp án còn lại chưa đúng?</strong><br>
+                        ${qData.exp.whyWrong}
+                    </div>
+                `;
+
+                card.appendChild(expBox);
+                container.appendChild(card);
+            });
+
+            updateProgress();
+            updateTotalVisibleCount();
+        }
+
+        function handleSelectMCQ(qIndex, selectedOpt, btn) {
+            if (isSubmitted) return;
+
+            const card = document.getElementById(`question-${qIndex}`);
+            const buttons = card.querySelectorAll('.option-btn');
+
+            buttons.forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+
+            userAnswers[qIndex] = selectedOpt;
+            updateProgress();
+        }
+
+        function openGapModal(qIndex) {
+            if (isSubmitted) return;
+            activeGapCardIndex = qIndex;
+            const qData = shuffledQuestions[qIndex];
+            const listEl = document.getElementById('gapOptionsList');
+            listEl.innerHTML = '';
+
+            qData.shuffledOpts.forEach(opt => {
+                const item = document.createElement('div');
+                item.className = 'gap-option-item';
+                item.innerText = opt;
+                item.onclick = () => selectGapOption(opt);
+                listEl.appendChild(item);
+            });
+
+            document.getElementById('gapModal').classList.add('active');
+        }
+
+        function selectGapOption(opt) {
+            if (activeGapCardIndex === null) return;
+            const qIndex = activeGapCardIndex;
+            userAnswers[qIndex] = opt;
+
+            const slot = document.getElementById(`gap-slot-${qIndex}`);
+            slot.innerText = opt;
+            slot.classList.add('filled');
+
+            document.getElementById('gapModal').classList.remove('active');
+            activeGapCardIndex = null;
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const answeredCount = Object.keys(userAnswers).length;
+            const total = shuffledQuestions.length;
+            const pct = (answeredCount / total) * 100;
+            document.getElementById('progressBar').style.width = `${pct}%`;
+            document.getElementById('progressText').innerText = `${answeredCount}/${total}`;
+        }
+
+        function updateTotalVisibleCount() {
+            const cards = document.querySelectorAll('.question-card:not(.hidden)');
+            document.getElementById('totalVisibleCount').innerText = cards.length;
+        }
+
+        function switchLevelFilter(level) {
+            currentLevelFilter = level;
+            const buttons = document.querySelectorAll('.level-nav .level-btn');
+            buttons.forEach(b => b.classList.remove('active'));
+
+            event.target.classList.add('active');
+
+            const cards = document.querySelectorAll('.question-card');
+            cards.forEach(card => {
+                if (level === 'all' || card.dataset.level === level) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+
+            updateTotalVisibleCount();
+        }
+
+        document.getElementById('submitBtn').addEventListener('click', () => {
+            const total = shuffledQuestions.length;
+            const answeredCount = Object.keys(userAnswers).length;
+
+            if (answeredCount < total) {
+                const confirmSubmit = confirm(`Em mới hoàn thành ${answeredCount}/${total} câu hỏi. Em có chắc chắn muốn nộp bài ngay để chấm điểm không?`);
+                if (!confirmSubmit) return;
+            }
+
+            isSubmitted = true;
+            let score = 0;
+            let wrongCount = 0;
+
+            shuffledQuestions.forEach((qData, qIndex) => {
+                const card = document.getElementById(`question-${qIndex}`);
+                const expBox = document.getElementById(`explanation-${qIndex}`);
+                const badge = document.getElementById(`badge-${qIndex}`);
+                const userChoice = userAnswers[qIndex];
+                const isCorrect = (userChoice === qData.answer);
+
+                if (qData.type === 'mcq') {
+                    const buttons = card.querySelectorAll('.option-btn');
+                    buttons.forEach(b => {
+                        b.classList.add('locked');
+                        b.style.cursor = 'default';
+                    });
+                    buttons.forEach(b => {
+                        b.classList.remove('selected');
+                        const textSpan = b.querySelector('span:last-child');
+                        if (textSpan.innerHTML.trim() === qData.answer || textSpan.innerText.trim() === qData.answer) {
+                            b.classList.add('correct');
+                        } else if ((textSpan.innerHTML.trim() === userChoice || textSpan.innerText.trim() === userChoice) && !isCorrect) {
+                            b.classList.add('wrong');
+                        }
+                    });
+                } else {
+                    const slot = document.getElementById(`gap-slot-${qIndex}`);
+                    if (isCorrect) {
+                        slot.style.background = '#00D26A';
+                        slot.style.color = '#FFF';
+                        slot.style.borderColor = '#00A352';
+                    } else {
+                        slot.style.background = '#FF4757';
+                        slot.style.color = '#FFF';
+                        slot.style.borderColor = '#D63031';
+                        slot.innerHTML = `${userChoice || 'Chưa chọn'} (Đúng: ${qData.answer})`;
+                    }
+                }
+
+                if (isCorrect) {
+                    score++;
+                    badge.className = 'status-badge correct';
+                    badge.innerText = '✓ ĐÚNG';
+                    card.dataset.result = 'correct';
+                } else {
+                    wrongCount++;
+                    badge.className = 'status-badge wrong';
+                    badge.innerText = '✗ SAI';
+                    card.dataset.result = 'wrong';
+                }
+
+                expBox.classList.add('active');
+            });
+
+            if (score >= total * 0.7) {
+                playSound('correct');
+                confetti({ particleCount: 150, spread: 85, origin: { y: 0.6 } });
+            } else {
+                playSound('wrong');
+            }
+
+            document.getElementById('wrongCount').innerText = wrongCount;
+            document.getElementById('filterBar').classList.add('active');
+            document.getElementById('statsLabel').innerText = '🎯 Kết quả kiểm tra';
+            document.getElementById('submitContainer').style.display = 'none';
+
+            document.getElementById('scoreDisplay').innerText = `${score}/${total}`;
+            let feedback = "";
+            let icon = "🏆";
+            if (score === total) {
+                feedback = "XUẤT SẮC TUYỆT ĐỐI! Em là bậc thầy làm chủ cả 50 câu Modals & Media! 👑✨";
+                icon = "🌟";
+            } else if (score >= total * 0.8) {
+                feedback = "RẤT TUYỆT VỜI! Kiến thức ngữ pháp và từ vựng của em cực kỳ vững chắc! 🎉";
+                icon = "🔥";
+            } else if (score >= total * 0.5) {
+                feedback = "KHÁ TỐT! Em đã nỗ lực hoàn thành bài test lớn. Hãy bấm xem lại các câu sai để rút kinh nghiệm nhé! 💪";
+                icon = "👏";
+            } else {
+                feedback = "CỐ GẮNG THÊM NHÉ! Hãy đọc kĩ từng phần phân tích chi tiết của Ms Ngoc Hai FTU bên dưới để củng cố lại bài học nào! 📚";
+                icon = "🌱";
+            }
+
+            document.getElementById('feedbackText').innerText = feedback;
+            document.getElementById('modalIcon').innerText = icon;
+            document.getElementById('scoreModal').classList.add('active');
+        });
+
+        function reviewWrongAnswers() {
+            document.getElementById('scoreModal').classList.remove('active');
+            filterQuestionsResult('wrong');
+        }
+
+        function reviewAllAnswers() {
+            document.getElementById('scoreModal').classList.remove('active');
+            filterQuestionsResult('all');
+        }
+
+        function filterQuestionsResult(type) {
+            const cards = document.querySelectorAll('.question-card');
+            const btnAll = document.getElementById('btnFilterAll');
+            const btnWrong = document.getElementById('btnFilterWrong');
+
+            if (type === 'wrong') {
+                btnWrong.classList.add('active');
+                btnAll.classList.remove('active');
+                cards.forEach(c => {
+                    const matchLevel = (currentLevelFilter === 'all' || c.dataset.level === currentLevelFilter);
+                    if (c.dataset.result === 'wrong' && matchLevel) {
+                        c.classList.remove('hidden');
+                    } else {
+                        c.classList.add('hidden');
+                    }
+                });
+            } else {
+                btnAll.classList.add('active');
+                btnWrong.classList.remove('active');
+                cards.forEach(c => {
+                    const matchLevel = (currentLevelFilter === 'all' || c.dataset.level === currentLevelFilter);
+                    if (matchLevel) {
+                        c.classList.remove('hidden');
+                    } else {
+                        c.classList.add('hidden');
+                    }
+                });
+            }
+            updateTotalVisibleCount();
+        }
+
+        window.onload = () => {
+            renderQuiz();
+        };
+    </script>
+</body>
+</html>
